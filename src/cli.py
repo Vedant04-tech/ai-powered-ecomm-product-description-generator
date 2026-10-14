@@ -46,7 +46,7 @@ def generate(
     shopify_out: Optional[Path] = typer.Option(None, "--export-shopify", help="Path to export Shopify import CSV"),
     woo_out: Optional[Path] = typer.Option(None, "--export-woo", help="Path to export WooCommerce JSON payload"),
     tone: Optional[str] = typer.Option(None, "--tone", "-t", help="Global tone override (e.g. premium, casual, technical)"),
-    model: str = typer.Option("gemini-2.5-flash", "--model", "-m", help="Gemini model name"),
+    model: str = typer.Option("gemini-3.8-flash", "--model", "-m", help="Gemini model name"),
     delay: float = typer.Option(1.5, "--delay", help="Seconds delay between API calls for rate limiting")
 ):
     """Run batch product description generation over an input file."""

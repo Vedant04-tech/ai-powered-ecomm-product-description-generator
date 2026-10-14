@@ -192,3 +192,110 @@ def test_default_model_is_valid_gemini_name():
         "gemini-3.6-flash does not exist; default must be a real model"
     )
     assert gen.model_name.startswith("gemini-"), "Model name must start with 'gemini-'"
+
+
+def test_generator_llm_property_raises_without_key():
+    gen = DescriptionGenerator(api_key=None)
+    with pytest.raises(ValueError, match="GEMINI_API_KEY is not set"):
+        _ = gen.llm
+
+
+def test_backoff_handles_429_and_recovers():
+    gen = DescriptionGenerator(api_key="fake-key")
+    mock_llm = MagicMock()
+    mock_response = MagicMock()
+    mock_response.content = "recovered successfully"
+    mock_llm.invoke.side_effect = [Exception("HTTP 429: Resource exhausted / quota exceeded"), mock_response]
+    gen._llm = mock_llm
+
+    with patch("time.sleep") as mock_sleep:
+        content = gen._call_llm_with_backoff("test-prompt")
+        assert content == "recovered successfully"
+        mock_sleep.assert_called_once()
+
+
+def test_backoff_handles_503_and_recovers():
+    gen = DescriptionGenerator(api_key="fake-key")
+    mock_llm = MagicMock()
+    mock_response = MagicMock()
+    mock_response.content = "service ready"
+    mock_llm.invoke.side_effect = [Exception("503 Service Unavailable"), mock_response]
+    gen._llm = mock_llm
+
+    with patch("time.sleep") as mock_sleep:
+        content = gen._call_llm_with_backoff("test-prompt")
+        assert content == "service ready"
+        mock_sleep.assert_called_once()
+
+
+def test_backoff_exhaustion_raises():
+    gen = DescriptionGenerator(api_key="fake-key")
+    mock_llm = MagicMock()
+    mock_llm.invoke.side_effect = Exception("Persistent API Error")
+    gen._llm = mock_llm
+
+    with patch("time.sleep"):
+        with pytest.raises(Exception, match="Persistent API Error"):
+            gen._call_llm_with_backoff("test-prompt", max_attempts=2)
+
+
+def test_generate_batch_empty():
+    gen = DescriptionGenerator(api_key="fake-key")
+    res = gen.generate_batch([])
+    assert res["total_processed"] == 0
+    assert res["success_count"] == 0
+    assert res["fail_count"] == 0
+    assert res["records"] == []
+
+
+def test_generate_batch_success_and_progress():
+    gen = DescriptionGenerator(api_key="fake-key")
+    sample_desc = ProductDescription(
+        sku="BATCH-01",
+        title="Batch Audio Earbuds",
+        short_description="Short desc",
+        long_description="Long description here for audio earbuds.",
+        bullet_points=["B1", "B2", "B3"],
+        meta_description="Meta desc",
+        keywords_used=["audio earbuds"],
+        tone="casual",
+        category="electronics"
+    )
+    val_res = MagicMock(is_valid=True, seo_score=85, readability_score=70.0, readability_level="Plain English", seo_breakdown={}, errors=[], warnings=[])
+
+    progress_calls = []
+    def on_progress(cur, tot, rec):
+        progress_calls.append((cur, tot, rec["sku"]))
+
+    with patch.object(gen, "generate_single", return_value=(sample_desc, val_res, 1)):
+        with patch("time.sleep") as mock_sleep:
+            products = [{"sku": "BATCH-01", "name": "Item 1", "category": "electronics", "specs": "Good specs"}]
+            result = gen.generate_batch(products, delay_seconds=0.5, progress_callback=on_progress)
+            assert result["success_count"] == 1
+            assert len(result["successful_descriptions"]) == 1
+            assert len(progress_calls) == 1
+            assert progress_calls[0] == (1, 1, "BATCH-01")
+
+
+def test_generate_batch_crash_handled():
+    gen = DescriptionGenerator(api_key="fake-key")
+    with patch.object(gen, "generate_single", side_effect=RuntimeError("Unexpected pipeline crash")):
+        products = [{"sku": "CRASH-01", "name": "Crashing Product", "category": "electronics", "specs": "bad specs"}]
+        result = gen.generate_batch(products, delay_seconds=0)
+        assert result["total_processed"] == 1
+        assert result["success_count"] == 0
+        assert result["fail_count"] == 1
+        assert result["records"][0]["status"] == "CRASH_SKIPPED"
+        assert "Unexpected pipeline crash" in result["records"][0]["errors"][0]
+
+
+def test_load_category_template_missing_file(tmp_path):
+    from pathlib import Path
+    with pytest.raises(FileNotFoundError):
+        load_category_template("nonexistent_cat", templates_dir=tmp_path)
+
+
+def test_list_available_categories_nonexistent(tmp_path):
+    empty_dir = tmp_path / "does_not_exist"
+    assert list_available_categories(empty_dir) == []
+

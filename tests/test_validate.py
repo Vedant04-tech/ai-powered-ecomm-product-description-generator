@@ -103,3 +103,70 @@ def test_short_title_scores_zero_seo_points():
     assert breakdown["title_length"]["score"] == 0, (
         "Titles <40 chars should score 0 SEO points per the documented rubric"
     )
+
+
+def test_flesch_reading_ease_empty_or_whitespace():
+    score, level = calculate_flesch_reading_ease("   ")
+    assert score == 70.0
+    assert "Optimal" in level
+
+
+def test_flesch_reading_ease_dense_technical():
+    technical_text = (
+        "Thermodynamic electrodynamic microcontroller implementations necessitate "
+        "multidimensional algorithmic synchronization and piezoelectric oscillation."
+    )
+    score, level = calculate_flesch_reading_ease(technical_text)
+    assert score < 60.0
+    assert "Complex" in level or "Dense" in level
+
+
+def test_validation_warnings_when_not_enforced(sample_description):
+    targets = ["nonexistent keyword xyz"]
+    result = validate_product_description(sample_description, target_keywords=targets, enforce_keywords=False)
+    # Should still be valid because enforce_keywords is False
+    assert result.is_valid is True
+    assert len(result.errors) == 0
+    assert any("nonexistent keyword xyz" in w for w in result.warnings)
+
+
+def test_validation_warns_when_hero_keyword_missing():
+    desc = ProductDescription(
+        sku="TEST-HERO",
+        title="AuraSound Headphones with Great Sound Quality",
+        short_description="Clean sound and comfort.",
+        long_description=(
+            "Enjoy listening to music wherever you go with high fidelity acoustics and "
+            "cushioned ear pads designed for continuous wear."
+        ),
+        bullet_points=["Battery", "Comfort", "Bluetooth"],
+        meta_description="Meta description with wireless earbuds keyword included here for SEO testing.",
+        keywords_used=[],
+        tone="premium",
+        category="electronics"
+    )
+    # "wireless earbuds" is only in meta_description, NOT in title or first 100 words of long_description
+    result = validate_product_description(desc, target_keywords=["wireless earbuds"], enforce_keywords=False)
+    assert any("No primary keyword found in title or first 100 words" in w for w in result.warnings)
+
+
+def test_validate_constructed_invalid_lengths():
+    # Use model_construct to bypass initial pydantic validator and test validate_product_description runtime guards
+    desc = ProductDescription.model_construct(
+        sku="OVERSIZED-01",
+        title="A" * 75,
+        short_description="B" * 170,
+        long_description="A standard long description for the oversized product.",
+        bullet_points=["Only one bullet"],
+        meta_description="C" * 170,
+        keywords_used=[],
+        tone="casual",
+        category="electronics"
+    )
+    result = validate_product_description(desc)
+    assert result.is_valid is False
+    assert any("Title exceeds 70" in e for e in result.errors)
+    assert any("Short description exceeds 160" in e for e in result.errors)
+    assert any("Meta description exceeds 160" in e for e in result.errors)
+    assert any("Bullet points count must be 3-5" in e for e in result.errors)
+

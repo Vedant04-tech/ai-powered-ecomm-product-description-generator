@@ -423,7 +423,7 @@ def run_evaluation(
     dataset_path: Path,
     output_path: Optional[Path],
     mock: bool,
-    model: str = "gemini-2.5-flash",
+    model: str = "gemini-3.8-flash",
 ) -> Dict[str, Any]:
     """Run all three prompt versions over the dataset and return structured results."""
     # Load dataset
@@ -530,7 +530,7 @@ if __name__ == "__main__":
         help="Run in offline mock mode (no API calls, no key required)"
     )
     parser.add_argument(
-        "--model", type=str, default="gemini-2.5-flash",
+        "--model", type=str, default="gemini-3.8-flash",
         help="Gemini model name (live mode only)"
     )
     args = parser.parse_args()

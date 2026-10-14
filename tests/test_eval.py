@@ -162,3 +162,17 @@ def test_eval_output_has_required_meta_fields(tmp_path):
     assert "cost_note" in meta
     # Cost must explicitly flag it's estimated
     assert "ESTIMATED" in meta["cost_note"]
+
+
+def test_eval_runner_cli_mock(tmp_path):
+    out_file = tmp_path / "cli_eval_out.json"
+    results = run_evaluation(
+        dataset_path=SAMPLE_CSV,
+        output_path=out_file,
+        mock=True,
+        model="gemini-3.8-flash"
+    )
+    assert out_file.exists()
+    assert results["meta"]["mock"] is True
+    assert len(results["records"]) > 0
+

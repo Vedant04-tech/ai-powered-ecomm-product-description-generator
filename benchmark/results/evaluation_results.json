@@ -1,0 +1,922 @@
+{
+  "meta": {
+    "dataset": "data\\sample_products.csv",
+    "dataset_size": 18,
+    "model": "gemini-2.5-flash",
+    "mock": true,
+    "timestamp": "2026-10-14T04:19:59Z",
+    "prompt_versions": {
+      "v1_baseline": "Baseline prompt \u2014 bare facts only. No schema, tone, SEO, or structure instructions given to the model.",
+      "v2_structured": "Structured prompt \u2014 explicit JSON schema fields, tone, SEO keyword rules, and character limits. No category-specific context.",
+      "v3_full_pipeline": "Full pipeline \u2014 category YAML template, tone guidance, keyword injection, Pydantic validation, and bounded repair retries. This is the production path."
+    },
+    "cost_note": "ESTIMATED: Token costs not directly measurable via this wrapper. See benchmark/eval_runner.py module docstring for assumptions."
+  },
+  "version_summary": {
+    "v1_baseline": {
+      "total_products": 18,
+      "schema_valid_count": 18,
+      "schema_valid_rate_pct": 100.0,
+      "seo_score_avg": 47.2,
+      "seo_compliant_rate_pct": 0.0,
+      "keyword_coverage_avg_pct": 25.9,
+      "initial_valid_count": 0,
+      "repair_attempts_total": 0,
+      "repair_success_rate_pct": null,
+      "avg_latency_seconds": 0.0,
+      "source": "mock"
+    },
+    "v2_structured": {
+      "total_products": 18,
+      "schema_valid_count": 18,
+      "schema_valid_rate_pct": 100.0,
+      "seo_score_avg": 80.8,
+      "seo_compliant_rate_pct": 72.2,
+      "keyword_coverage_avg_pct": 66.7,
+      "initial_valid_count": 0,
+      "repair_attempts_total": 0,
+      "repair_success_rate_pct": null,
+      "avg_latency_seconds": 0.0,
+      "source": "mock"
+    },
+    "v3_full_pipeline": {
+      "total_products": 18,
+      "schema_valid_count": 18,
+      "schema_valid_rate_pct": 100.0,
+      "seo_score_avg": 80.1,
+      "seo_compliant_rate_pct": 72.2,
+      "keyword_coverage_avg_pct": 66.7,
+      "initial_valid_count": 0,
+      "repair_attempts_total": 0,
+      "repair_success_rate_pct": null,
+      "avg_latency_seconds": 0.0,
+      "source": "mock"
+    }
+  },
+  "records": [
+    {
+      "sku": "ELEC-001",
+      "name": "Wireless Earbuds X200",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): noise cancelling earbuds, bluetooth earphones"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-001",
+      "name": "Wireless Earbuds X200",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): bluetooth earphones"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-001",
+      "name": "Wireless Earbuds X200",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): bluetooth earphones"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-002",
+      "name": "Ergonomic Mechanical Keyboard K8",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): hot swappable keyboard, wireless gaming keyboard"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-002",
+      "name": "Ergonomic Mechanical Keyboard K8",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): wireless gaming keyboard"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-002",
+      "name": "Ergonomic Mechanical Keyboard K8",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): wireless gaming keyboard"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-003",
+      "name": "UltraVision 4K Webcam Pro",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): streaming webcam, USB-C webcam"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-003",
+      "name": "UltraVision 4K Webcam Pro",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): USB-C webcam"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-003",
+      "name": "UltraVision 4K Webcam Pro",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): USB-C webcam"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-004",
+      "name": "FastCharge 65W GaN Charger",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): USB-C fast charger, travel charger"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-004",
+      "name": "FastCharge 65W GaN Charger",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): travel charger"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-004",
+      "name": "FastCharge 65W GaN Charger",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): travel charger"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-005",
+      "name": "Smart LED Desk Lamp L9",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): smart desk lamp, Qi charging lamp"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-005",
+      "name": "Smart LED Desk Lamp L9",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): Qi charging lamp"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-005",
+      "name": "Smart LED Desk Lamp L9",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): Qi charging lamp"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-006",
+      "name": "Portable Bluetooth Speaker Boom7",
+      "category": "electronics",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 23,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): portable speaker, waterproof speaker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-006",
+      "name": "Portable Bluetooth Speaker Boom7",
+      "category": "electronics",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): waterproof speaker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "ELEC-006",
+      "name": "Portable Bluetooth Speaker Boom7",
+      "category": "electronics",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): waterproof speaker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-101",
+      "name": "Merino Wool Crewneck Sweater",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 18,
+      "keyword_coverage_pct": 0.0,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): merino wool sweater, men crewneck sweater, thermal knit pullover"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-101",
+      "name": "Merino Wool Crewneck Sweater",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): thermal knit pullover"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-101",
+      "name": "Merino Wool Crewneck Sweater",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): thermal knit pullover"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-102",
+      "name": "Everyday Trail Running Shorts",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): athletic shorts with liner, trail running apparel"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-102",
+      "name": "Everyday Trail Running Shorts",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): trail running apparel"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-102",
+      "name": "Everyday Trail Running Shorts",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): trail running apparel"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-103",
+      "name": "Classic Oxford Button-Down Shirt",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 18,
+      "keyword_coverage_pct": 0.0,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): oxford shirt, button down shirt, men dress shirt"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-103",
+      "name": "Classic Oxford Button-Down Shirt",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): men dress shirt"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-103",
+      "name": "Classic Oxford Button-Down Shirt",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): men dress shirt"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-104",
+      "name": "Insulated Hiking Jacket",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): insulated jacket, down jacket"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-104",
+      "name": "Insulated Hiking Jacket",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): down jacket"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-104",
+      "name": "Insulated Hiking Jacket",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 63,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): down jacket"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-105",
+      "name": "Bamboo Yoga Leggings",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): bamboo leggings, high waist workout leggings"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-105",
+      "name": "Bamboo Yoga Leggings",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 63,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): high waist workout leggings"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-105",
+      "name": "Bamboo Yoga Leggings",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 63,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): high waist workout leggings"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-106",
+      "name": "Leather Chelsea Boots",
+      "category": "apparel",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): leather boots, men ankle boots"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-106",
+      "name": "Leather Chelsea Boots",
+      "category": "apparel",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 69,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): men ankle boots"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "APPR-106",
+      "name": "Leather Chelsea Boots",
+      "category": "apparel",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 63,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): men ankle boots"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-201",
+      "name": "Hand-Poured Ceramic Pour-Over Dripper",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 18,
+      "keyword_coverage_pct": 0.0,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): ceramic pour over, artisanal coffee dripper, handcrafted coffee maker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-201",
+      "name": "Hand-Poured Ceramic Pour-Over Dripper",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): handcrafted coffee maker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-201",
+      "name": "Hand-Poured Ceramic Pour-Over Dripper",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): handcrafted coffee maker"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-202",
+      "name": "Bamboo Modular Desk Organizer",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 18,
+      "keyword_coverage_pct": 0.0,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): bamboo desk organizer, modular office tray, sustainable workspace accessory"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-202",
+      "name": "Bamboo Modular Desk Organizer",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): sustainable workspace accessory"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-202",
+      "name": "Bamboo Modular Desk Organizer",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): sustainable workspace accessory"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-203",
+      "name": "Cast Iron Enameled Dutch Oven 5.5Qt",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): cast iron dutch oven, enameled cookware"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-203",
+      "name": "Cast Iron Enameled Dutch Oven 5.5Qt",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): enameled cookware"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-203",
+      "name": "Cast Iron Enameled Dutch Oven 5.5Qt",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): enameled cookware"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-204",
+      "name": "Linen Duvet Cover Set King",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): king duvet cover, French linen bedding"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-204",
+      "name": "Linen Duvet Cover Set King",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): French linen bedding"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-204",
+      "name": "Linen Duvet Cover Set King",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): French linen bedding"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-205",
+      "name": "Adjustable Monitor Stand",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): adjustable monitor riser, desk monitor mount"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-205",
+      "name": "Adjustable Monitor Stand",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): desk monitor mount"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-205",
+      "name": "Adjustable Monitor Stand",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 83,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): desk monitor mount"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-206",
+      "name": "Essential Oil Diffuser Aura500",
+      "category": "home_goods",
+      "prompt_version": "v1_baseline",
+      "schema_valid": true,
+      "seo_score": 58,
+      "keyword_coverage_pct": 0.333,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): ultrasonic diffuser, aromatherapy diffuser"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-206",
+      "name": "Essential Oil Diffuser Aura500",
+      "category": "home_goods",
+      "prompt_version": "v2_structured",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): aromatherapy diffuser"
+      ],
+      "source": "mock"
+    },
+    {
+      "sku": "HOME-206",
+      "name": "Essential Oil Diffuser Aura500",
+      "category": "home_goods",
+      "prompt_version": "v3_full_pipeline",
+      "schema_valid": true,
+      "seo_score": 89,
+      "keyword_coverage_pct": 0.667,
+      "initial_valid": false,
+      "repair_attempts": 0,
+      "latency_seconds": 0.0,
+      "errors": [
+        "Missing required keyword(s): aromatherapy diffuser"
+      ],
+      "source": "mock"
+    }
+  ]
+}

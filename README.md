@@ -112,7 +112,7 @@ python -m src.cli \
   --export-shopify output/shopify_import.csv \
   --export-woo output/woocommerce_payload.json \
   --tone premium \
-  --model gemini-2.5-flash
+  --model gemini-3.8-flash
 ```
 
 ---

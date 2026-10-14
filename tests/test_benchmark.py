@@ -35,3 +35,17 @@ def test_zero_sku_handling():
     assert res.effort_reduction_pct == 0.0
     assert res.manual_cost_usd == 0.0
     assert res.dollars_saved == 0.0
+
+
+def test_benchmark_result_to_dict_and_summary_table():
+    res = calculate_effort_reduction(50, 60.0)
+    d = res.to_dict()
+    assert isinstance(d, dict)
+    assert d["sku_count"] == 50
+    assert "dollars_saved" in d
+
+    table = res.summary_table()
+    assert "EFFORT & ROI BENCHMARK" in table
+    assert "Products Processed (SKUs)      : 50" in table
+    assert "Net Financial Savings" in table
+

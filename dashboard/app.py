@@ -106,7 +106,7 @@ api_key = st.sidebar.text_input(
 
 model_choice = st.sidebar.selectbox(
     "Model Selection",
-    options=["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"],
+    options=["gemini-3.8-flash", "gemini-2.5-flash", "gemini-2.0-flash"],
     index=0,
     help="Fast and rate-limit friendly for batch eCommerce generation."
 )

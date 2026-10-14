@@ -90,3 +90,28 @@ def test_woocommerce_payload_mapping(sample_desc):
     assert meta_dict["_yoast_wpseo_title"] == sample_desc.title
     assert meta_dict["_yoast_wpseo_metadesc"] == sample_desc.meta_description
     assert meta_dict["rank_math_title"] == sample_desc.title
+
+
+def test_shopify_csv_empty_list():
+    assert to_shopify_csv([]) == ""
+
+
+def test_woocommerce_payload_json_helper(sample_desc):
+    import json
+    from src.export.woocommerce import to_woocommerce_payload_json
+    json_str = to_woocommerce_payload_json([sample_desc], [{"price": "49.00"}])
+    parsed = json.loads(json_str)
+    assert isinstance(parsed, list)
+    assert len(parsed) == 1
+    assert parsed[0]["regular_price"] == "49.00"
+
+
+def test_format_currency_malformed():
+    assert format_currency("Contact for price") == "Contact for price"
+    assert format_currency("  ") == ""
+
+
+def test_generate_handle_special_symbols():
+    handle = generate_handle("!@# Special $$$ Product ???", sku="XYZ-9")
+    assert "special-product" in handle
+
