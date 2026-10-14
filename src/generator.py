@@ -185,7 +185,7 @@ class DescriptionGenerator:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        model_name: str = "gemini-3.6-flash",
+        model_name: str = "gemini-2.5-flash",
         temperature: float = 0.7,
         max_validation_retries: int = 2
     ):
@@ -263,6 +263,14 @@ class DescriptionGenerator:
         brand = norm_product["brand"]
         specs = norm_product["specs"]
         price = norm_product["price"]
+
+        # Pre-flight: reject products with no usable content before any API call
+        if name == "Unnamed Product" and not specs.strip():
+            logger.warning(f"SKU {sku}: skipping — both name and specs are missing. No API call made.")
+            return None, ValidationResult(
+                is_valid=False,
+                errors=["Insufficient product data: name and specs are both missing. Provide at least a product name or specifications."]
+            ), 0
 
         # Resolve category and template
         resolved_category = resolve_category(raw_cat)

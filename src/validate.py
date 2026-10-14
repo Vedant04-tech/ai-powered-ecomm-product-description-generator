@@ -126,9 +126,8 @@ def calculate_seo_score(
         title_pts = 20
     elif 40 <= title_len < 50:
         title_pts = 14
-    elif title_len <= 70:
-        title_pts = 8
     else:
+        # shortcut: <40 chars or >70 chars earns 0; >70 is already blocked by Pydantic max_length
         title_pts = 0
     points += title_pts
     breakdown["title_length"] = {"score": title_pts, "max": 20, "actual_chars": title_len}

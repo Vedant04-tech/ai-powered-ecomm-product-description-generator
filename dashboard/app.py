@@ -106,7 +106,7 @@ api_key = st.sidebar.text_input(
 
 model_choice = st.sidebar.selectbox(
     "Model Selection",
-    options=["gemini-3.6-flash", "gemini-2.5-flash", "gemini-1.5-flash"],
+    options=["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"],
     index=0,
     help="Fast and rate-limit friendly for batch eCommerce generation."
 )
@@ -358,6 +358,8 @@ with tabs[2]:
                         new_bullets = [b.strip() for b in edit_bullets.split("\n") if b.strip()]
                         if len(new_bullets) < 3:
                             st.error("Please provide at least 3 bullet points.")
+                        elif len(new_bullets) > 5:
+                            st.error("Maximum 5 bullet points allowed.")
                         else:
                             # Update record
                             desc_data["title"] = edit_title
@@ -366,25 +368,29 @@ with tabs[2]:
                             desc_data["long_description"] = edit_long
                             desc_data["meta_description"] = edit_meta
 
-                            # Recalculate SEO & Readability
-                            target_kws = selected_record.get("extra_attrs", {}).get("keywords", "")
-                            kw_list = [k.strip() for k in target_kws.split(",") if k.strip()] if isinstance(target_kws, str) else target_kws
-                            temp_obj = ProductDescription(**desc_data)
-                            new_score, _ = calculate_seo_score(temp_obj, kw_list)
-                            new_flesch, new_tier = calculate_flesch_reading_ease(edit_long)
+                            # Recalculate SEO & Readability — guard against Pydantic rejection
+                            try:
+                                target_kws = selected_record.get("extra_attrs", {}).get("keywords", "")
+                                kw_list = [k.strip() for k in target_kws.split(",") if k.strip()] if isinstance(target_kws, str) else target_kws
+                                temp_obj = ProductDescription(**desc_data)
+                                new_score, _ = calculate_seo_score(temp_obj, kw_list)
+                                new_flesch, new_tier = calculate_flesch_reading_ease(edit_long)
 
-                            selected_record["seo_score"] = new_score
-                            selected_record["readability_score"] = new_flesch
-                            selected_record["readability_level"] = new_tier
+                                selected_record["seo_score"] = new_score
+                                selected_record["readability_score"] = new_flesch
+                                selected_record["readability_level"] = new_tier
 
-                            # Update in successful descriptions list
-                            for i, s_desc in enumerate(st.session_state.batch_results["successful_descriptions"]):
-                                if s_desc.sku == selected_sku:
-                                    st.session_state.batch_results["successful_descriptions"][i] = temp_obj
-                                    break
+                                # Update in successful descriptions list
+                                for i, s_desc in enumerate(st.session_state.batch_results["successful_descriptions"]):
+                                    if s_desc.sku == selected_sku:
+                                        st.session_state.batch_results["successful_descriptions"][i] = temp_obj
+                                        break
 
-                            st.success("Successfully saved changes! Exports will include your updated copy.")
-                            st.rerun()
+                                st.success("Successfully saved changes! Exports will include your updated copy.")
+                                st.rerun()
+                            except Exception as ve:
+                                st.error(f"Could not save: schema validation failed — {ve}")
+
 
         # Platform Export Section
         st.divider()

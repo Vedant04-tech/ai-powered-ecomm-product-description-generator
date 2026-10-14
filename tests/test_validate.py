@@ -83,3 +83,23 @@ def test_validation_fails_when_keyword_missing(sample_description):
     assert any("missing keyword xyz" in err for err in result.errors)
     assert result.retry_prompt_feedback is not None
     assert "missing keyword xyz" in result.retry_prompt_feedback
+
+
+def test_short_title_scores_zero_seo_points():
+    """Titles shorter than 40 chars must score 0 pts per the documented rubric."""
+    from src.validate import calculate_seo_score
+    desc = ProductDescription(
+        sku="SHORT-001",
+        title="Short Title",  # 11 chars — well below 40
+        short_description="Valid short description.",
+        long_description="A long description that is at least twenty characters long.",
+        bullet_points=["B1", "B2", "B3"],
+        meta_description="Valid meta description for SEO.",
+        keywords_used=[],
+        tone="casual",
+        category="electronics",
+    )
+    score, breakdown = calculate_seo_score(desc, target_keywords=[])
+    assert breakdown["title_length"]["score"] == 0, (
+        "Titles <40 chars should score 0 SEO points per the documented rubric"
+    )

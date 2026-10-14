@@ -171,3 +171,24 @@ def test_generator_retry_on_initial_failure():
         assert desc is not None
         assert attempts == 2
         assert val_result.is_valid is True
+
+
+def test_generator_rejects_empty_product_without_api_call():
+    """Products with no name and no specs must be rejected pre-flight (zero API calls)."""
+    gen = DescriptionGenerator(api_key="fake-key-for-test")
+    # Pass a product row where normalization produces "Unnamed Product" and empty specs
+    empty_product = {"some_column": "some_value"}  # no recognized name/specs keys
+    desc, val_result, attempts = gen.generate_single(empty_product)
+    assert desc is None
+    assert attempts == 0
+    assert val_result.is_valid is False
+    assert any("Insufficient product data" in e for e in val_result.errors)
+
+
+def test_default_model_is_valid_gemini_name():
+    """Confirm the default model name is a real Gemini model, not the old broken name."""
+    gen = DescriptionGenerator(api_key="fake-key")
+    assert gen.model_name != "gemini-3.6-flash", (
+        "gemini-3.6-flash does not exist; default must be a real model"
+    )
+    assert gen.model_name.startswith("gemini-"), "Model name must start with 'gemini-'"
