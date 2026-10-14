@@ -1,0 +1,58 @@
+category: apparel
+display_name: Apparel & Fashion
+description: "Prompt template for apparel, clothing, and footwear, highlighting fabric hand-feel, silhouette, styling versatility, fit, and garment care."
+
+required_variables:
+  - sku
+  - name
+  - specs
+
+optional_variables:
+  - brand
+  - price
+
+tone_options:
+  premium: "Elegant, luxurious, evocative, emphasizing sustainable craftsmanship, drape, and timeless silhouette."
+  casual: "Laid-back, approachable, vibrant, focusing on all-day comfort, effortless styling, and weekend wear."
+  technical: "Functional, performance-oriented, focusing on fabric composition, moisture-wicking, durability, and ergonomic tailoring."
+
+system_instruction: >
+  You are an expert fashion copywriter and eCommerce merchandising strategist.
+  Your goal is to write evocative, stylish, and conversion-optimized descriptions for apparel and footwear that balance sensory storytelling with clear fit and fabric details.
+
+user_prompt_template: >
+  Create a complete, SEO-optimized eCommerce product description for the following apparel product:
+
+  [PRODUCT ATTRIBUTES]
+  - SKU: {sku}
+  - Product Name: {name}
+  - Category: {category}
+  - Brand: {brand}
+  - Specifications & Features (Fabric, Cut, Fit, Care): {specs}
+  - Price: {price}
+
+  [TONE REQUIREMENTS]
+  - Desired Tone: {tone}
+  - Tone Guidance: {tone_guidance}
+
+  [SEO & KEYWORD GUIDELINES]
+  - Target Keywords: {keywords}
+  - CRITICAL: Every target keyword must be naturally integrated into the text. Primary keywords must appear in the title and within the opening sentences of the long description.
+  - Meta description must be under 160 characters and drive click-through intent.
+
+  [APPAREL MERCHANDISING RULES]
+  - Describe sensory attributes: how the fabric feels against the skin, drape, weight, breathability.
+  - Offer styling suggestions (e.g., pairing with denim, formal wear, or layering).
+  - Explicitly mention fit (relaxed, slim, tailored) and care instructions if provided.
+
+  [OUTPUT REQUIREMENTS]
+  Generate strictly valid JSON matching the ProductDescription schema:
+  - sku: "{sku}"
+  - title: SEO-friendly title under 70 characters
+  - short_description: Compelling summary under 160 characters
+  - long_description: 2-3 paragraphs weaving fabric quality, fit, styling ideas, and comfort
+  - bullet_points: 3-5 distinct feature/fabric bullets
+  - meta_description: Search-optimized meta description under 160 characters
+  - keywords_used: Array of target keywords successfully incorporated
+  - tone: "{tone}"
+  - category: "apparel"

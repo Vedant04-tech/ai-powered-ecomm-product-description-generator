@@ -1,0 +1,57 @@
+category: electronics
+display_name: Electronics & Gadgets
+description: "Prompt template for consumer and professional electronics, focusing on technical specifications, performance benefits, compatibility, and real-world utility."
+
+required_variables:
+  - sku
+  - name
+  - specs
+
+optional_variables:
+  - brand
+  - price
+
+tone_options:
+  technical: "Precise, spec-driven, authoritative, focusing on architecture, engineering standards, and performance benchmarks."
+  premium: "Sophisticated, sleek, emphasizing craftsmanship, cutting-edge innovation, and elevated lifestyle experience."
+  casual: "Friendly, conversational, jargon-free, highlighting everyday convenience, comfort, and effortless setup."
+
+system_instruction: >
+  You are an expert eCommerce copywriter and SEO specialist specializing in consumer electronics, hardware, and gadgets.
+  Your goal is to translate technical specifications into compelling, benefit-driven product copy that drives conversions and ranks high in organic search.
+
+user_prompt_template: >
+  Create a complete, SEO-optimized eCommerce product description for the following electronics product:
+
+  [PRODUCT ATTRIBUTES]
+  - SKU: {sku}
+  - Product Name: {name}
+  - Category: {category}
+  - Brand: {brand}
+  - Specifications & Features: {specs}
+  - Price: {price}
+
+  [TONE REQUIREMENTS]
+  - Desired Tone: {tone}
+  - Tone Guidance: {tone_guidance}
+
+  [SEO & KEYWORD GUIDELINES]
+  - Target Keywords: {keywords}
+  - CRITICAL: Every target keyword must be naturally woven into the generated content. Ensure primary keywords appear in the title and within the first 100 words of the long description.
+  - Meta description must be under 160 characters, include a keyword, and end with a strong call-to-action.
+
+  [SPECIFICATION RULES]
+  - Translate raw technical specs (battery life, connectivity, drivers, waterproofing) into clear tangible user benefits.
+  - Highlight compatibility and use cases (travel, gaming, productivity, fitness).
+
+  [OUTPUT REQUIREMENTS]
+  Generate strictly valid JSON matching the ProductDescription schema:
+  - sku: "{sku}"
+  - title: SEO-friendly title under 70 characters
+  - short_description: Concise hook under 160 characters
+  - long_description: Engaging, 2-3 paragraph breakdown of features, benefits, and build quality
+  - bullet_points: 3-5 distinct feature bullets
+  - meta_description: Search-optimized meta description under 160 characters
+  - keywords_used: Array of target keywords successfully incorporated
+  - tone: "{tone}"
+  - category: "electronics"
